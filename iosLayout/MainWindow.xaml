@@ -4,9 +4,78 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:iosLayout"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:controls="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="MainWindow"
+        WindowStartupLocation="CenterScreen"
+        Height="600"
+        Width="410">
+  <Grid>
+    <Grid x:Name="BlurContainer">
+      <Image Stretch="Fill"
+             Source="Assets/wallpaper.png" />
     </Grid>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="4*" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <md:Transitioner Grid.Row="1"
+                       SelectedIndex="0"
+                                   AutoApplyTransitionOrigins="True">
+        <md:TransitionerSlide>
+          <md:TransitionerSlide.BackwardWipe>
+            <md:SlideWipe Direction="Right" />
+          </md:TransitionerSlide.BackwardWipe>
+          <md:TransitionerSlide.ForwardWipe>
+            <md:SlideWipe Direction="Left" />
+          </md:TransitionerSlide.ForwardWipe>
+          <local:Page1 Margin="0,16,0,0" />
+        </md:TransitionerSlide>
+      </md:Transitioner>
+      
+      
+      <controls:BlurryUserControl Name="blurry"
+                                  Grid.Row="3"
+                                  BlurContainer="{Binding ElementName=BlurContainer}"
+                                  BlurStrength="0.4" />
+      <StackPanel Grid.Row="3"
+                  Orientation="Horizontal"
+                  Margin="0,8,0,0">
+        <Button Style="{StaticResource btnApp}">
+          <Button.DataContext>
+            <local:btnAppDataContext Image="Assets/icon_phone.png" 
+                                     Text="Phone"/>
+          </Button.DataContext>
+        </Button>
+        <Button Style="{StaticResource btnApp}">
+          <Button.DataContext>
+            <local:btnAppDataContext Image="Assets/icon_safari.png"
+                                     Text="Safari" />
+          </Button.DataContext>
+        </Button>
+        <Button Style="{StaticResource btnApp}">
+          <Button.DataContext>
+            <local:btnAppDataContext Image="Assets/icon_mail.png"
+                                     Text="Mail" />
+          </Button.DataContext>
+        </Button>
+        <Button Style="{StaticResource btnApp}">
+          <Button.DataContext>
+            <local:btnAppDataContext Image="Assets/icon_music.png"
+                                     Text="Music" />
+          </Button.DataContext>
+        </Button>
+      </StackPanel>
+    </Grid>
+  </Grid>
 </Window>

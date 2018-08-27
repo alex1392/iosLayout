@@ -2,8 +2,98 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:iosLayout"
+             xmlns:ee="http://schemas.microsoft.com/expression/2010/effects"
+             xmlns:ikriv="clr-namespace:IKriv.Wpf"
              StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
+  
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+
+      <Style TargetType="local:btnApp">
+        <Setter Property="Width"
+                Value="80" />
+        <Setter Property="Height"
+                Value="100" />
+        <Setter Property="Margin"
+                Value="16,0,0,0" />
+      </Style>
+
+      <ikriv:MathConverter x:Key="MathConverter" />
+      <Style x:Key="btnApp"
+             TargetType="{x:Type Button}">
+        <Setter Property="Margin"
+                Value="16,0,0,0" />
+        <Setter Property="Width"
+                Value="80" />
+        <Setter Property="Height"
+                Value="100" />
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="4*" />
+                  <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border x:Name="borderMask"
+                        Background="Black"
+                        Margin="1"
+                        CornerRadius="20" />
+                <Border x:Name="borderReceiver">
+                  <Border.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=borderMask}" />
+                  </Border.OpacityMask>
+                  <Image x:Name="Image"
+                         Source="{Binding Image}"
+                         Stretch="Fill">
+                    <Image.Effect>
+                      <ee:ColorToneEffect LightColor="White"
+                                          DarkColor="White"
+                                          Desaturation="0"
+                                          ToneAmount="0" />
+                    </Image.Effect>
+                  </Image>
+                </Border>
+                <TextBlock x:Name="Text"
+                           Grid.Row="1"
+                           FontFamily="Roboto"
+                           Foreground="White"
+                           TextAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="{Binding Text}" />
+              </Grid>
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed"
+                         Value="true">
+                  <Setter TargetName="Image"
+                          Property="Effect">
+                    <Setter.Value>
+                      <ee:ColorToneEffect LightColor="#FF545454"
+                                          DarkColor="White"
+                                          Desaturation="0"
+                                          ToneAmount="0" />
+                    </Setter.Value>
+                  </Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled"
+                         Value="false">
+                  <Setter Property="Opacity"
+                          Value="0.4" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+    </ResourceDictionary>
+  </Application.Resources>
 </Application>

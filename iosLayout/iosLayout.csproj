@@ -34,8 +34,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.1.1101, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.4.1.1101\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Effects, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -54,6 +69,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="btnApp.xaml.cs">
+      <DependentUpon>btnApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="btnAppDataContext.cs" />
+    <Compile Include="MarginConverter.cs" />
+    <Compile Include="MathConverter.cs" />
+    <Compile Include="Page1.xaml.cs">
+      <DependentUpon>Page1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
+    <Page Include="btnApp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -66,6 +97,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Page1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -85,6 +124,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -92,6 +132,75 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\icon_angrybird.png" />
+    <Resource Include="Assets\icon_appstore.png" />
+    <Resource Include="Assets\icon_calculator.png" />
+    <Resource Include="Assets\icon_calendar.png" />
+    <Resource Include="Assets\icon_chrome.png" />
+    <Resource Include="Assets\icon_contact.png" />
+    <Resource Include="Assets\icon_DJ.png" />
+    <Resource Include="Assets\icon_dropbox.png" />
+    <Resource Include="Assets\icon_facetime.png" />
+    <Resource Include="Assets\icon_find.png" />
+    <Resource Include="Assets\icon_firefox.png" />
+    <Resource Include="Assets\icon_flappybird.png" />
+    <Resource Include="Assets\icon_gmail.png" />
+    <Resource Include="Assets\icon_google+.png" />
+    <Resource Include="Assets\icon_google.png" />
+    <Resource Include="Assets\icon_google2.png" />
+    <Resource Include="Assets\icon_googledrive.png" />
+    <Resource Include="Assets\icon_googleMap.png" />
+    <Resource Include="Assets\icon_health.png" />
+    <Resource Include="Assets\icon_house.png" />
+    <Resource Include="Assets\icon_icloud.png" />
+    <Resource Include="Assets\icon_instagram.png" />
+    <Resource Include="Assets\icon_itunes.png" />
+    <Resource Include="Assets\icon_linkin.png" />
+    <Resource Include="Assets\icon_list.png" />
+    <Resource Include="Assets\icon_mail.png" />
+    <Resource Include="Assets\icon_map.png" />
+    <Resource Include="Assets\icon_mario.png" />
+    <Resource Include="Assets\icon_message.png" />
+    <Resource Include="Assets\icon_messenger.png" />
+    <Resource Include="Assets\icon_money.png" />
+    <Resource Include="Assets\icon_movie.png" />
+    <Resource Include="Assets\icon_music.png" />
+    <Resource Include="Assets\icon_note.png" />
+    <Resource Include="Assets\icon_outlook.png" />
+    <Resource Include="Assets\icon_phone.png" />
+    <Resource Include="Assets\icon_remote.png" />
+    <Resource Include="Assets\icon_skype.png" />
+    <Resource Include="Assets\icon_soundcloud.png" />
+    <Resource Include="Assets\icon_stock.png" />
+    <Resource Include="Assets\icon_task.png" />
+    <Resource Include="Assets\icon_tips.png" />
+    <Resource Include="Assets\icon_travelbook.png" />
+    <Resource Include="Assets\icon_ufo.png" />
+    <Resource Include="Assets\icon_voice.png" />
+    <Resource Include="Assets\icon_weather.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\source\repos\BlurryControls-master\BlurryControls\BlurryControls.csproj">
+      <Project>{d63b55be-f2f9-4c99-bed1-0af9770f428a}</Project>
+      <Name>BlurryControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\icon_camera.png" />
+    <Resource Include="Assets\icon_clock.png" />
+    <Resource Include="Assets\icon_facebook.png" />
+    <Resource Include="Assets\icon_googlecalendar.png" />
+    <Resource Include="Assets\icon_imovie.png" />
+    <Resource Include="Assets\icon_line.png" />
+    <Resource Include="Assets\icon_photo.png" />
+    <Resource Include="Assets\icon_safari.png" />
+    <Resource Include="Assets\icon_settings.png" />
+    <Resource Include="Assets\icon_youtube.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\wallpaper.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
