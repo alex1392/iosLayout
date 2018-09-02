@@ -79,6 +79,8 @@ namespace iosLayout
       //紀錄deltaX最大最小值
       deltaXMax = CurrentIndex * ActualWidth;
       deltaXMin = (CurrentIndex - (ChildrenCount - 1)) * ActualWidth;
+      //更新畫面
+      OnMouseMove(e);
     }
 
     private double OutCubicEase(double x)

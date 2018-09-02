@@ -25,10 +25,5 @@ namespace iosLayout
     {
       InitializeComponent();
     }
-
-    private void SwipeableFrame_MouseMove(object sender, MouseEventArgs e)
-    {
-
-    }
   }
 }

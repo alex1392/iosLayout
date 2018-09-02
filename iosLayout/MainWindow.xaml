@@ -33,7 +33,11 @@
         <RowDefinition Height="85" />
       </Grid.RowDefinitions>
       <StackPanel Orientation="Horizontal">
-        <Button Style="{StaticResource AppFolder}" />
+        <Button Style="{StaticResource AppFolder}">
+          <ItemsControl Style="{StaticResource FolderAppPanel}"
+                        ItemsSource="{Binding Folder1Items}">
+          </ItemsControl>
+        </Button>
       </StackPanel>
 
 

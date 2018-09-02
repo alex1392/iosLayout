@@ -66,6 +66,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\ButtonModel.cs" />
+    <Compile Include="Models\FolderModel.cs" />
     <Compile Include="SwipeableFrame.cs" />
     <Compile Include="ViewModels\Page2ViewModel.cs" />
     <Compile Include="ViewModels\Page1ViewModel.cs" />

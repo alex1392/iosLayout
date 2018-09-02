@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:blur="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
+             xmlns:ext="clr-namespace:MyLibrary.Extensions;assembly=MyLibrary"
              StartupUri="MainWindow.xaml">
 
   <Application.Resources>
@@ -14,19 +15,24 @@
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
       </ResourceDictionary.MergedDictionaries>
 
-      <CornerRadius x:Key="CornerRadius">15</CornerRadius>
-      <system:Double x:Key="ButtonWidth">60</system:Double>
+      <CornerRadius x:Key="AppButtonCornerRadius">15</CornerRadius>
+      <system:Double x:Key="AppButtonWidth">60</system:Double>
+      <CornerRadius x:Key="FolderAppButtonCornerRadius">4</CornerRadius>
+      <system:Double x:Key="FolderAppButtonWidth">15</system:Double>
+
       <SolidColorBrush x:Key="Shader"
-                       Color="#B2000000" />
+                       Color="#4C000000" />
       <SolidColorBrush x:Key="BlurryBackground"
                        Color="#4CFFFFFF" />
+      <SolidColorBrush x:Key="FolderBackground"
+                       Color="#7FFFFFFF" />
 
       <Style x:Key="AppButtonBase"
              TargetType="Button">
         <Setter Property="Width"
-                Value="{StaticResource ButtonWidth}" />
+                Value="{StaticResource AppButtonWidth}" />
         <Setter Property="Height"
-                Value="{StaticResource ButtonWidth}" />
+                Value="{StaticResource AppButtonWidth}" />
         <Setter Property="Cursor"
                 Value="Hand" />
       </Style>
@@ -40,7 +46,7 @@
                 <Border x:Name="AppButtonMask"
                         Background="Black"
                         Margin="1"
-                        CornerRadius="{StaticResource CornerRadius}" />
+                        CornerRadius="{StaticResource AppButtonCornerRadius}" />
                 <Border x:Name="AppButtonContent">
                   <Border.OpacityMask>
                     <VisualBrush Visual="{Binding ElementName=AppButtonMask}" />
@@ -48,7 +54,7 @@
                   <ContentPresenter />
                 </Border>
                 <Border Name="AppButtonShader"
-                        CornerRadius="{StaticResource CornerRadius}"
+                        CornerRadius="{StaticResource AppButtonCornerRadius}"
                         Visibility="Hidden"
                         Panel.ZIndex="1"
                         Background="{StaticResource Shader}" />
@@ -59,65 +65,6 @@
                   <Setter TargetName="AppButtonShader"
                           Property="Visibility"
                           Value="Visible" />
-                </Trigger>
-                <Trigger Property="IsEnabled"
-                         Value="false">
-                  <Setter Property="Opacity"
-                          Value="0.4" />
-                </Trigger>
-              </ControlTemplate.Triggers>
-            </ControlTemplate>
-          </Setter.Value>
-        </Setter>
-      </Style>
-
-      <Style x:Key="BlurryFolder"
-             TargetType="blur:BlurryUserControl">
-        <Setter Property="BlurContainer"
-                Value="{Binding ElementName=BlurContainer}" />
-        <Setter Property="Template">
-          <Setter.Value>
-            <ControlTemplate>
-              <Grid>
-                <Rectangle Name="Blur"></Rectangle>
-                <Rectangle RadiusX="15"
-                           RadiusY="15"
-                           Fill="{StaticResource BlurryBackground}"></Rectangle>
-                <ContentPresenter />
-              </Grid>
-            </ControlTemplate>
-          </Setter.Value>
-        </Setter>
-      </Style>
-      <Style x:Key="AppFolder"
-             TargetType="{x:Type Button}"
-             BasedOn="{StaticResource AppButtonBase}">
-        <Setter Property="Template">
-          <Setter.Value>
-            <ControlTemplate TargetType="{x:Type Button}">
-              <Grid>
-                <blur:BlurryUserControl Name="blurryBackground"
-                                        Style="{StaticResource BlurryFolder}">
-                  <ContentPresenter />
-
-                </blur:BlurryUserControl>
-                <Border Name="AppFolderShader"
-                        CornerRadius="{StaticResource CornerRadius}"
-                        Visibility="Hidden"
-                        Panel.ZIndex="1"
-                        Background="{StaticResource Shader}" />
-              </Grid>
-              <ControlTemplate.Triggers>
-                <Trigger Property="IsPressed"
-                         Value="true">
-                  <Setter TargetName="AppFolderShader"
-                          Property="Visibility"
-                          Value="Visible" />
-                </Trigger>
-                <Trigger Property="IsEnabled"
-                         Value="false">
-                  <Setter Property="Opacity"
-                          Value="0.4" />
                 </Trigger>
               </ControlTemplate.Triggers>
             </ControlTemplate>
@@ -160,6 +107,106 @@
                 </Button>
                 <TextBlock Text="{Binding Label}"
                            Style="{StaticResource AppLabel}" />
+              </StackPanel>
+            </DataTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style x:Key="FolderBase"
+             TargetType="blur:BlurryUserControl">
+        <Setter Property="BlurContainer"
+                Value="{Binding ElementName=BlurContainer}" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate>
+              <Grid>
+                <Rectangle Name="Blur"></Rectangle>
+                <Rectangle RadiusX="15"
+                           RadiusY="15"
+                           Fill="{StaticResource FolderBackground}"></Rectangle>
+                <ContentPresenter />
+              </Grid>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style x:Key="AppFolder"
+             TargetType="{x:Type Button}"
+             BasedOn="{StaticResource AppButtonBase}">
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+              <Grid>
+                <blur:BlurryUserControl Name="blurryBackground"
+                                        Style="{StaticResource FolderBase}" />
+                <ContentPresenter VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"/>
+                <Border Name="AppFolderShader"
+                        CornerRadius="{StaticResource AppButtonCornerRadius}"
+                        Visibility="Hidden"
+                        Panel.ZIndex="1"
+                        Background="{StaticResource Shader}" />
+              </Grid>
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed"
+                         Value="true">
+                  <Setter TargetName="AppFolderShader"
+                          Property="Visibility"
+                          Value="Visible" />
+                </Trigger>
+                <Trigger Property="IsEnabled"
+                         Value="false">
+                  <Setter Property="Opacity"
+                          Value="0.4" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style x:Key="FolderAppButton"
+             TargetType="{x:Type Button}">
+        <Setter Property="Width"
+                Value="{StaticResource FolderAppButtonWidth}" />
+        <Setter Property="Height"
+                Value="{StaticResource FolderAppButtonWidth}" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+              <Grid>
+                <Border x:Name="AppButtonMask"
+                        Background="Black"
+                        Margin="1"
+                        CornerRadius="{StaticResource FolderAppButtonCornerRadius}" />
+                <Border x:Name="AppButtonContent">
+                  <Border.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=AppButtonMask}" />
+                  </Border.OpacityMask>
+                  <ContentPresenter />
+                </Border>
+              </Grid>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style x:Key="FolderAppPanel"
+             TargetType="ItemsControl">
+        <Setter Property="ItemsPanel">
+          <Setter.Value>
+            <ItemsPanelTemplate>
+              <WrapPanel />
+            </ItemsPanelTemplate>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+          <Setter.Value>
+            <DataTemplate>
+              <StackPanel Orientation="Vertical"
+                          Margin="3,1,0,0">
+                <Button Style="{StaticResource FolderAppButton}">
+                  <Image Source="{Binding Image}" />
+                </Button>
               </StackPanel>
             </DataTemplate>
           </Setter.Value>

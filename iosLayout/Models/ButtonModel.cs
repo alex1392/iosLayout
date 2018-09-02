@@ -13,6 +13,11 @@ namespace iosLayout
 
     }
 
+    public ButtonModel(Uri image) : this()
+    {
+      Image = image;
+    }
+
     public ButtonModel(Uri image, string label) : this()
     {
       Image = image;
