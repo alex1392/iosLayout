@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,10 +24,10 @@ namespace iosLayout
       // Invoke after all chilren are loaded
       Dispatcher.InvokeAsync(new Action(() => InitializeSwipeContainer()), DispatcherPriority.Loaded);
     }
-
     private void InitializeSwipeContainer()
     {
-      for (int i = 0; i < Children.Count; i++)
+      ChildrenCount = Children.Count;
+      for (int i = 0; i < ChildrenCount; i++)
       {
         //將原本重疊的children移動到畫面之外
         Children[i].RenderTransform = new TranslateTransform { X = ActualWidth * i };
@@ -34,20 +35,34 @@ namespace iosLayout
         //初始化動畫
         var animation = new DoubleAnimation
         {
-          Duration = new Duration(TimeSpan.FromMilliseconds(300)),
+          Duration = new Duration(TimeSpan.FromMilliseconds(200)),
         };
         Storyboard.SetTarget(animation, Children[i]);
         Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.(TranslateTransform.X)"));
         SwipeStoryboard.Children.Add(animation);
       }
-      SwipeStoryboard.Begin();
 
       Visibility = Visibility.Visible;
     }
-    
+
+    int _CurrentIndex = 0;
+    int CurrentIndex
+    {
+      get => _CurrentIndex;
+      set
+      {
+        _CurrentIndex = Clamp(value, 0, ChildrenCount - 1);
+      }
+    }
+
+    int ChildrenCount;
+
     Point MouseAnchor;
     List<double> ChildrenAnchor = new List<double>();
     Storyboard SwipeStoryboard = new Storyboard();
+    List<double> MouseXTrack = new List<double>();
+    double deltaXMax;
+    double deltaXMin;
     protected override void OnMouseDown(MouseButtonEventArgs e)
     {
       base.OnMouseDown(e);
@@ -57,12 +72,45 @@ namespace iosLayout
 
       //紀錄錨點
       MouseAnchor = Mouse.GetPosition(this);
-      for (int i = 0; i < Children.Count; i++)
+      MouseXTrack.Add(MouseAnchor.X);
+      for (int i = 0; i < ChildrenCount; i++)
       {
         ChildrenAnchor.Add(childrenTransform(i).X);
       }
+      //紀錄deltaX最大最小值
+      deltaXMax = CurrentIndex * ActualWidth;
+      deltaXMin = (CurrentIndex - (ChildrenCount - 1)) * ActualWidth;
     }
 
+
+    private double OutCubicEase(double x)
+    {
+      return 3 * x - 3 * Math.Pow(x, 2) + Math.Pow(x, 3);
+    }
+    private double EasingOverflow(double overflow)
+    {
+      var MaxSwipeRange = 5 * ActualWidth;
+      var EasingXStretch = 10 * ActualWidth;
+      var EasingYStretch = 0.9 * ActualWidth;
+      overflow = Clamp(overflow, MaxSwipeRange, 0);
+      return EasingYStretch * OutCubicEase(overflow / EasingXStretch);
+    }
+    private double EasingDeltaX(double deltaX)
+    {
+      if (deltaX > deltaXMax)
+      {
+        var overflow = deltaX - deltaXMax;
+        overflow = EasingOverflow(overflow);
+        deltaX = deltaXMax + overflow;
+      }
+      else if (deltaX < deltaXMin)
+      {
+        var overflow = deltaXMin - deltaX; //overflow恆正
+        overflow = EasingOverflow(overflow);
+        deltaX = deltaXMin - overflow;
+      }
+      return deltaX;
+    }
     protected override void OnMouseMove(MouseEventArgs e)
     {
       base.OnMouseMove(e);
@@ -73,27 +121,43 @@ namespace iosLayout
 
       var pos = Mouse.GetPosition(this);
       var deltaX = pos.X - MouseAnchor.X;
-      for (int i = 0; i < Children.Count; i++)
+      deltaX = EasingDeltaX(deltaX);
+      MouseXTrack.Add(pos.X);
+
+      //移動
+      for (int i = 0; i < ChildrenCount; i++)
       {
         childrenTransform(i).X = ChildrenAnchor[i] + deltaX;
       }
     }
 
+    private double AveMouseXTrack(int N)
+    {
+      // N = last N elements to average
+      N = Clamp(N, MouseXTrack.Count, 0);
+      return MouseXTrack.GetRange(MouseXTrack.Count - N, N).Average();
+    }
+    private double dxThreshold = 10;
     protected override void OnMouseUp(MouseButtonEventArgs e)
     {
       base.OnMouseUp(e);
       var pos = Mouse.GetPosition(this);
       var deltaX = pos.X - MouseAnchor.X;
-      if (deltaX > ActualWidth / 2)
+      var dx = pos.X - AveMouseXTrack(10);
+
+      //判斷換頁
+      if (deltaX > 0 && Math.Abs(dx) > dxThreshold ||
+        deltaX > ActualWidth / 2)
       {
         CurrentIndex--;
       }
-      else if (deltaX < -ActualWidth / 2)
+      else if (deltaX < 0 && Math.Abs(dx) > dxThreshold ||
+        deltaX < -ActualWidth / 2)
       {
         CurrentIndex++;
       }
-
-      for (int i = 0; i < Children.Count; i++)
+      //啟動動畫
+      for (int i = 0; i < ChildrenCount; i++)
       {
         (SwipeStoryboard.Children[i] as DoubleAnimation).From = childrenTransform(i).X;
         (SwipeStoryboard.Children[i] as DoubleAnimation).To = GetSettledChild(i);
@@ -101,20 +165,21 @@ namespace iosLayout
       SwipeStoryboard.Completed += SwipeStoryboard_Completed;
       SwipeStoryboard.Begin();
 
-      ReleaseMouseCapture(); 
+      ReleaseMouseCapture();
+      MouseXTrack.Clear();
     }
 
     private void SwipeStoryboard_Completed(object sender, EventArgs e)
     {
       SwipeStoryboard.Stop();
-      for (int i = 0; i < Children.Count; i++)
+      for (int i = 0; i < ChildrenCount; i++)
       {
         childrenTransform(i).X = GetSettledChild(i);
       }
     }
 
     private TranslateTransform childrenTransform(int index) => Children[index].RenderTransform as TranslateTransform;
-    int CurrentIndex = 0;
+
     private double GetSettledChild(int pageIndex)
     {
       return (pageIndex - CurrentIndex) * ActualWidth;
