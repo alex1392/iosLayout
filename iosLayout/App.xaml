@@ -16,6 +16,10 @@
 
       <CornerRadius x:Key="CornerRadius">15</CornerRadius>
       <system:Double x:Key="ButtonWidth">60</system:Double>
+      <SolidColorBrush x:Key="Shader"
+                       Color="#B2000000" />
+      <SolidColorBrush x:Key="BlurryBackground"
+                       Color="#4CFFFFFF" />
 
       <Style x:Key="AppButtonBase"
              TargetType="Button">
@@ -47,7 +51,7 @@
                         CornerRadius="{StaticResource CornerRadius}"
                         Visibility="Hidden"
                         Panel.ZIndex="1"
-                        Background="#B2000000" />
+                        Background="{StaticResource Shader}" />
               </Grid>
               <ControlTemplate.Triggers>
                 <Trigger Property="IsPressed"
@@ -66,6 +70,25 @@
           </Setter.Value>
         </Setter>
       </Style>
+
+      <Style x:Key="BlurryFolder"
+             TargetType="blur:BlurryUserControl">
+        <Setter Property="BlurContainer"
+                Value="{Binding ElementName=BlurContainer}" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate>
+              <Grid>
+                <Rectangle Name="Blur"></Rectangle>
+                <Rectangle RadiusX="15"
+                           RadiusY="15"
+                           Fill="{StaticResource BlurryBackground}"></Rectangle>
+                <ContentPresenter />
+              </Grid>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
       <Style x:Key="AppFolder"
              TargetType="{x:Type Button}"
              BasedOn="{StaticResource AppButtonBase}">
@@ -73,23 +96,16 @@
           <Setter.Value>
             <ControlTemplate TargetType="{x:Type Button}">
               <Grid>
-                <Border x:Name="AppFolderMask"
-                        Background="Black"
-                        Margin="1"
-                        CornerRadius="{StaticResource CornerRadius}" />
                 <blur:BlurryUserControl Name="blurryBackground"
-                                        BlurContainer="{Binding ElementName=BlurContainer}"
-                                        BlurStrength="0.4">
-                  <blur:BlurryUserControl.OpacityMask>
-                    <VisualBrush Visual="{Binding ElementName=AppFolderMask}" />
-                  </blur:BlurryUserControl.OpacityMask>
+                                        Style="{StaticResource BlurryFolder}">
+                  <ContentPresenter />
+
                 </blur:BlurryUserControl>
-                <ContentPresenter />
                 <Border Name="AppFolderShader"
                         CornerRadius="{StaticResource CornerRadius}"
                         Visibility="Hidden"
                         Panel.ZIndex="1"
-                        Background="#B2000000" />
+                        Background="{StaticResource Shader}" />
               </Grid>
               <ControlTemplate.Triggers>
                 <Trigger Property="IsPressed"
@@ -149,7 +165,7 @@
           </Setter.Value>
         </Setter>
       </Style>
-      
+
     </ResourceDictionary>
   </Application.Resources>
 </Application>

@@ -28,12 +28,15 @@
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
-        <RowDefinition Height="4*" />
+        <RowDefinition Height="300" />
         <RowDefinition Height="auto" />
-        <RowDefinition Height="*" />
+        <RowDefinition Height="85" />
       </Grid.RowDefinitions>
+      <StackPanel Orientation="Horizontal">
+        <Button Style="{StaticResource AppFolder}" />
+      </StackPanel>
 
-      
+
       <local:SwipeableFrame Grid.Row="1"
                             x:Name="MainFrame">
         <local:Page1 Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
@@ -45,7 +48,7 @@
       <controls:BlurryUserControl Name="blurry"
                                   Grid.Row="3"
                                   BlurContainer="{Binding ElementName=BlurContainer}"
-                                  BlurStrength="0.4" />
+                                  Background="{StaticResource BlurryBackground}" />
       <ItemsControl Name="MainButtonsPanel"
                     Style="{StaticResource AppPanel}"
                     Grid.Row="3"
