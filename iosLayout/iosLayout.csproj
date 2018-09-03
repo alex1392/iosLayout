@@ -65,7 +65,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\ButtonModel.cs" />
+    <Compile Include="Models\ButtonType.cs" />
+    <Compile Include="ViewModels\ButtonViewModel.cs" />
     <Compile Include="Models\FolderModel.cs" />
     <Compile Include="SwipeableFrame.cs" />
     <Compile Include="ViewModels\Page2ViewModel.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Pages\Page2.xaml.cs">
       <DependentUpon>Page2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

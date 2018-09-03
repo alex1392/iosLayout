@@ -17,8 +17,8 @@
 
       <CornerRadius x:Key="AppButtonCornerRadius">15</CornerRadius>
       <system:Double x:Key="AppButtonWidth">60</system:Double>
-      <CornerRadius x:Key="FolderAppButtonCornerRadius">4</CornerRadius>
-      <system:Double x:Key="FolderAppButtonWidth">15</system:Double>
+      <CornerRadius x:Key="FolderAppButtonCornerRadius">3</CornerRadius>
+      <system:Double x:Key="FolderAppButtonWidth">14</system:Double>
 
       <SolidColorBrush x:Key="Shader"
                        Color="#4C000000" />
@@ -140,8 +140,10 @@
               <Grid>
                 <blur:BlurryUserControl Name="blurryBackground"
                                         Style="{StaticResource FolderBase}" />
-                <ContentPresenter VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"/>
+                <ContentPresenter Width="52"
+                                  Height="52"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center" />
                 <Border Name="AppFolderShader"
                         CornerRadius="{StaticResource AppButtonCornerRadius}"
                         Visibility="Hidden"
@@ -195,7 +197,7 @@
         <Setter Property="ItemsPanel">
           <Setter.Value>
             <ItemsPanelTemplate>
-              <WrapPanel />
+              <WrapPanel  />
             </ItemsPanelTemplate>
           </Setter.Value>
         </Setter>
@@ -203,8 +205,9 @@
           <Setter.Value>
             <DataTemplate>
               <StackPanel Orientation="Vertical"
-                          Margin="3,1,0,0">
-                <Button Style="{StaticResource FolderAppButton}">
+                          Margin="2.5,2.5,0,0">
+                <Button Style="{StaticResource FolderAppButton}"
+                        IsHitTestVisible="False">
                   <Image Source="{Binding Image}" />
                 </Button>
               </StackPanel>

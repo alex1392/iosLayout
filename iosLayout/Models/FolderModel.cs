@@ -13,6 +13,6 @@ namespace iosLayout.Models
 
     }
 
-    public List<ButtonModel> ButtonList { get; set; }
+    public List<ButtonViewModel> ButtonList { get; set; }
   }
 }

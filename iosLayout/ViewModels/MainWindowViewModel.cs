@@ -15,7 +15,7 @@ namespace iosLayout
     }
 
 
-    public List<ButtonModel> Folder1Items { get; set; } = new List<ButtonModel>();
+    public List<ButtonViewModel> Folder1Items { get; set; } = new List<ButtonViewModel>();
     private void InitializeFolder1()
     {
       var imageList = new List<Uri>
@@ -24,15 +24,20 @@ namespace iosLayout
         new Uri($"pack://application:,,,/Assets/icon_safari.png"),
         new Uri($"pack://application:,,,/Assets/icon_mail.png"),
         new Uri($"pack://application:,,,/Assets/icon_music.png"),
+        new Uri($"pack://application:,,,/Assets/icon_music.png"),
+        new Uri($"pack://application:,,,/Assets/icon_music.png"),
+        new Uri($"pack://application:,,,/Assets/icon_music.png"),
+        new Uri($"pack://application:,,,/Assets/icon_music.png"),
+        new Uri($"pack://application:,,,/Assets/icon_music.png"),
       };
 
       for (int i = 0; i < imageList.Count; i++)
       {
-        Folder1Items.Add(new ButtonModel(imageList[i]));
+        Folder1Items.Add(new ButtonViewModel(imageList[i]));
       }
     }
 
-    public List<ButtonModel> MainButtonsPanelItems { get; set; } = new List<ButtonModel>();
+    public List<ButtonViewModel> MainButtonsPanelItems { get; set; } = new List<ButtonViewModel>();
     private void InitializeMainButtonsPanel()
     {
       var imageList = new List<Uri>
@@ -52,7 +57,7 @@ namespace iosLayout
 
       for (int i = 0; i < imageList.Count; i++)
       {
-        MainButtonsPanelItems.Add(new ButtonModel(imageList[i], labelList[i]));
+        MainButtonsPanelItems.Add(new ButtonViewModel(imageList[i], labelList[i]));
       }
     }
 
