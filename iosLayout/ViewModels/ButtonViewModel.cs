@@ -5,9 +5,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace iosLayout
 {
+  /// <summary>
+  /// IOS系統之按鈕類別。
+  /// </summary>
   public class ButtonViewModel : ViewModelBase
   {
     public ButtonViewModel()
@@ -18,11 +22,11 @@ namespace iosLayout
     {
       Image = image;
     }
-    public ButtonViewModel(Uri image, string label) : this()
+    public ButtonViewModel(Uri image, string label) : this(image)
     {
-      Image = image;
       Label = label;
     }
+
 
     /// <summary>
     /// 按鈕之名稱

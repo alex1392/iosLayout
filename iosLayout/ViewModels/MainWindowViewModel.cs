@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using CycWpfLibrary.NativeMethods;
 
@@ -46,8 +47,11 @@ namespace iosLayout
     {
       MainButtonsPanelItems = new CompositeCollection
       {
-        new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
-        new FolderViewModel("Folder", new ObservableCollection<ButtonViewModel>
+        new MainButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+        new MainButtonViewModel($"Assets/icon_safari.png".PackUri(), "Safari"),
+        new MainButtonViewModel($"Assets/icon_mail.png".PackUri(), "Mail"),
+
+        new MainFolderViewModel("Folder", new ObservableCollection<ButtonViewModel>
         {
           new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
           new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
@@ -60,26 +64,6 @@ namespace iosLayout
           new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
         })
       };
-
-      //var imageList = new List<Uri>
-      //{
-      //  new Uri($"pack://application:,,,/Assets/icon_phone.png"),
-      //  new Uri($"pack://application:,,,/Assets/icon_safari.png"),
-      //  new Uri($"pack://application:,,,/Assets/icon_mail.png"),
-      //  new Uri($"pack://application:,,,/Assets/icon_music.png"),
-      //};
-      //var labelList = new List<string>
-      //{
-      //  "Phone",
-      //  "Safari",
-      //  "Mail",
-      //  "Music",
-      //};
-
-      //for (int i = 0; i < imageList.Count; i++)
-      //{
-      //  MainButtonsPanelItems.Add(new ButtonViewModel(imageList[i], labelList[i]));
-      //}
     }
 
   }

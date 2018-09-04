@@ -66,7 +66,7 @@ namespace iosLayout
     {
       base.OnMouseDown(e);
       CaptureMouse(); //避免滑鼠離開視窗而捕捉不到MouseUp
-      SwipeStoryboard.Stop(); //中斷動畫
+      SwipeStoryboard.Stop(); //中斷動畫 ,,,,, bug??
       ChildrenAnchor.Clear();
 
       //紀錄錨點
@@ -79,6 +79,7 @@ namespace iosLayout
       //紀錄deltaX最大最小值
       deltaXMax = CurrentIndex * ActualWidth;
       deltaXMin = (CurrentIndex - (ChildrenCount - 1)) * ActualWidth;
+
       //更新畫面
       OnMouseMove(e);
     }

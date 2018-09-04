@@ -10,6 +10,7 @@ namespace iosLayout
   public static class Constants
   {
     public static double ButtonWidth = 60;
+    
 
     public static double ButtonLeftMargin = ButtonWidth / 5;
     public static double ButtonTopMargin = ButtonLeftMargin / 2;
@@ -18,8 +19,9 @@ namespace iosLayout
 
     public static double FolderButtonWidth = ButtonWidth / 4;
     public static double FolderButtonCornerRadius = FolderButtonWidth / 4;
-    public static double FolderPanelMargin = FolderButtonWidth / 8;
+    public static double FolderButtonMargin = FolderButtonWidth / 8;
+    public static double FolderContentWidth = FolderButtonWidth * 3 + FolderButtonMargin * 4;
 
-    
+
   }
 }

@@ -30,14 +30,19 @@
                  Top="{x:Static local:Constants.ButtonTopMargin}"
                  Right="0"
                  Bottom="0" />
+      <Thickness x:Key="MainButtonMargin"
+                 Left="{x:Static local:Constants.ButtonLeftMargin}"
+                 Top="0"
+                 Right="0"
+                 Bottom="0" />
       <Thickness x:Key="ButtonLabelMargin"
                  Top="{x:Static local:Constants.ButtonLabelMargin}"
                  Bottom="{x:Static local:Constants.ButtonLabelMargin}"
                  Left="0"
                  Right="0" />
-      <Thickness x:Key="FolderPanelMargin"
-                 Top="{x:Static local:Constants.FolderPanelMargin}"
-                 Left="{x:Static local:Constants.FolderPanelMargin}"
+      <Thickness x:Key="FolderButtonMargin"
+                 Top="{x:Static local:Constants.FolderButtonMargin}"
+                 Left="{x:Static local:Constants.FolderButtonMargin}"
                  Right="0"
                  Bottom="0" />
 
@@ -59,6 +64,17 @@
           </Setter.Value>
         </Setter>
       </Style>
+      <Style x:Key="MainButtonPanel"
+             TargetType="ItemsControl">
+        <Setter Property="ItemsPanel">
+          <Setter.Value>
+            <ItemsPanelTemplate>
+              <StackPanel Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
       <Style x:Key="ButtonLabel"
              TargetType="TextBlock">
         <Setter Property="VerticalAlignment"
@@ -133,7 +149,7 @@
                   <blur:BlurryUserControl.Template>
                     <ControlTemplate>
                       <Grid>
-                        <Rectangle Name="Blur"></Rectangle>
+                        <Rectangle Name="Blur" /><!--BlurryUserControl.Template中一定要有一個名為Blur的元件來搭載模糊背景-->
                         <Rectangle RadiusX="{x:Static local:Constants.ButtonCornerRadius}"
                                    RadiusY="{x:Static local:Constants.ButtonCornerRadius}"
                                    Fill="{StaticResource FolderBackground}" />
@@ -141,8 +157,45 @@
                     </ControlTemplate>
                   </blur:BlurryUserControl.Template>
                 </blur:BlurryUserControl>
-                <ContentPresenter Width="52"
-                                  Height="52"
+                <ContentPresenter Width="{x:Static local:Constants.FolderContentWidth}"
+                                  Height="{x:Static local:Constants.FolderContentWidth}"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center" />
+                <Border Name="AppFolderShader"
+                        CornerRadius="{StaticResource ButtonCornerRadius}"
+                        Visibility="Hidden"
+                        Panel.ZIndex="1"
+                        Background="{StaticResource Shader}" />
+              </Grid>
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed"
+                         Value="true">
+                  <Setter TargetName="AppFolderShader"
+                          Property="Visibility"
+                          Value="Visible" />
+                </Trigger>
+                <Trigger Property="IsEnabled"
+                         Value="false">
+                  <Setter Property="Opacity"
+                          Value="0.4" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style x:Key="MainFolder"
+             TargetType="{x:Type Button}"
+             BasedOn="{StaticResource ApplicationBase}">
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+              <Grid>
+                <Rectangle RadiusX="{x:Static local:Constants.ButtonCornerRadius}"
+                           RadiusY="{x:Static local:Constants.ButtonCornerRadius}"
+                           Fill="{StaticResource FolderBackground}" />
+                <ContentPresenter Width="{x:Static local:Constants.FolderContentWidth}"
+                                  Height="{x:Static local:Constants.FolderContentWidth}"
                                   VerticalAlignment="Center"
                                   HorizontalAlignment="Center" />
                 <Border Name="AppFolderShader"
@@ -198,7 +251,7 @@
         <Setter Property="ItemsPanel">
           <Setter.Value>
             <ItemsPanelTemplate>
-              <WrapPanel  />
+              <WrapPanel />
             </ItemsPanelTemplate>
           </Setter.Value>
         </Setter>
@@ -206,7 +259,7 @@
           <Setter.Value>
             <DataTemplate>
               <StackPanel Orientation="Vertical"
-                          Margin="{StaticResource FolderPanelMargin}">
+                          Margin="{StaticResource FolderButtonMargin}">
                 <Button Style="{StaticResource FolderButton}"
                         IsHitTestVisible="False">
                   <Image Source="{Binding Image}" />
@@ -227,6 +280,13 @@
                      Style="{StaticResource ButtonLabel}" />
         </StackPanel>
       </DataTemplate>
+      <DataTemplate DataType="{x:Type local:MainButtonViewModel}">
+        <Button Style="{StaticResource Application}"
+                Margin="{StaticResource MainButtonMargin}"
+                VerticalAlignment="Center">
+          <Image Source="{Binding Image}" />
+        </Button>
+      </DataTemplate>
       <DataTemplate DataType="{x:Type local:FolderViewModel}">
         <StackPanel Orientation="Vertical"
                     Margin="{StaticResource ButtonMargin}">
@@ -238,6 +298,15 @@
           <TextBlock Text="{Binding Label}"
                      Style="{StaticResource ButtonLabel}" />
         </StackPanel>
+      </DataTemplate>
+      <DataTemplate DataType="{x:Type local:MainFolderViewModel}">
+        <Button Style="{StaticResource MainFolder}"
+                Margin="{StaticResource MainButtonMargin}"
+                VerticalAlignment="Center">
+          <ItemsControl Style="{StaticResource FolderPanel}"
+                        ItemsSource="{Binding Children}">
+          </ItemsControl>
+        </Button>
       </DataTemplate>
 
     </ResourceDictionary>

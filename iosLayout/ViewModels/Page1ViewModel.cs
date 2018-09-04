@@ -3,49 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
+using CycWpfLibrary.NativeMethods;
 
 namespace iosLayout
 {
   public class Page1ViewModel
   {
+    public CompositeCollection MainButtonsPanelItems { get; set; }
     public Page1ViewModel()
     {
-      var imageList = new List<Uri>
+      MainButtonsPanelItems = new CompositeCollection
       {
-        new Uri($"pack://application:,,,/Assets/icon_message.png"),
-        new Uri($"pack://application:,,,/Assets/icon_calendar.png"),
-        new Uri($"pack://application:,,,/Assets/icon_photo.png"),
-        new Uri($"pack://application:,,,/Assets/icon_camera.png"),
-        new Uri($"pack://application:,,,/Assets/icon_weather.png"),
-        new Uri($"pack://application:,,,/Assets/icon_map.png"),
-        new Uri($"pack://application:,,,/Assets/icon_note.png"),
-        new Uri($"pack://application:,,,/Assets/icon_appstore.png"),
-        new Uri($"pack://application:,,,/Assets/icon_health.png"),
-        new Uri($"pack://application:,,,/Assets/icon_settings.png"),
-        new Uri($"pack://application:,,,/Assets/icon_clock.png"),
+        new ButtonViewModel($"Assets/icon_phone.png".PackUri(),    "Phone"),
+        new ButtonViewModel($"Assets/icon_safari.png".PackUri(),   "Safari"),
+        new ButtonViewModel($"Assets/icon_mail.png".PackUri(),     "Mail"),
+        new ButtonViewModel($"Assets/icon_music.png".PackUri(),    "Music"),
+        new ButtonViewModel($"Assets/icon_message.png".PackUri(),  "Messages"),
+        new ButtonViewModel($"Assets/icon_calendar.png".PackUri(), "Calendar"),
+        new ButtonViewModel($"Assets/icon_photo.png".PackUri(),    "Photos"),
+        new ButtonViewModel($"Assets/icon_camera.png".PackUri(),   "Camera"),
+        new ButtonViewModel($"Assets/icon_weather.png".PackUri(),  "Weather"),
+        new ButtonViewModel($"Assets/icon_map.png".PackUri(),      "Maps"),
+        new ButtonViewModel($"Assets/icon_note.png".PackUri(),     "Notes"),
+        new ButtonViewModel($"Assets/icon_appstore.png".PackUri(), "App Store"),
+        new ButtonViewModel($"Assets/icon_health.png".PackUri(),   "Health"),
+        new ButtonViewModel($"Assets/icon_settings.png".PackUri(), "Settings"),
+        new ButtonViewModel($"Assets/icon_clock.png".PackUri(),    "Clock"),
       };
-
-      var labelList = new List<string>
-      {
-        "Messages",
-        "Calendar",
-        "Photos",
-        "Camera",
-        "Weather",
-        "Maps",
-        "Notes",
-        "App Store",
-        "Health",
-        "Settings",
-        "Clock",
-      };
-
-      for (int i = 0; i < imageList.Count; i++)
-      {
-        MainButtonsPanelItems.Add(new ButtonViewModel(imageList[i], labelList[i]));
-      }
     }
-
-    public List<ButtonViewModel> MainButtonsPanelItems { get; set; } = new List<ButtonViewModel>();
   }
 }
