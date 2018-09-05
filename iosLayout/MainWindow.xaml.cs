@@ -25,5 +25,10 @@ namespace iosLayout
     {
       InitializeComponent();
     }
+
+    private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+      Close();
+    }
   }
 }

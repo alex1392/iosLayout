@@ -15,51 +15,59 @@
         mc:Ignorable="d"
         Title="MainWindow"
         WindowStartupLocation="CenterScreen"
-        Height="470"
-        Width="310">
+        WindowStyle="SingleBorderWindow"
+        AllowsTransparency="False"
+        Height="587"
+        Width="300"
+        MouseDoubleClick="Window_MouseDoubleClick">
+
   <Window.DataContext>
     <local:MainWindowViewModel />
   </Window.DataContext>
-  <Grid>
-    <Grid x:Name="BlurContainer">
-      <Image Stretch="Fill"
-             Source="Assets/wallpaper.png" />
-    </Grid>
-    <Grid>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="360" />
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="80" />
-      </Grid.RowDefinitions>
-      <!--<StackPanel Orientation="Horizontal">
-        <Button Style="{StaticResource Folder}">
-          <ItemsControl Style="{StaticResource FolderPanel}"
-                        ItemsSource="{Binding Folder1Items}">
+
+  <Viewbox Stretch="Uniform">
+    <Grid Width="293"
+          Height="557">
+      <Grid.Background>
+        <ImageBrush ImageSource="Assets/iPhone.png"
+                    Stretch="Uniform" />
+      </Grid.Background>
+      <Grid Margin="36,81,33.333,81.333">
+
+        <Grid x:Name="BlurContainer">
+          <Image Stretch="Fill"
+                 Source="Assets/wallpaper.png" />
+        </Grid>
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="360" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="80" />
+          </Grid.RowDefinitions>
+
+          <local:SwipeableFrame Grid.Row="1"
+                                x:Name="MainFrame">
+            <local:Page1 Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                         Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" />
+            <local:Page2 Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                         Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" />
+          </local:SwipeableFrame>
+
+          <controls:BlurryUserControl Name="blurry"
+                                      Grid.Row="3"
+                                      BlurContainer="{Binding ElementName=BlurContainer}"
+                                      Background="{StaticResource BlurryBackground}" />
+          <ItemsControl Name="MainButtonsPanel"
+                        Style="{StaticResource MainButtonPanel}"
+                        Grid.Row="3"
+                        Panel.ZIndex="1"
+                        ItemsSource="{Binding MainButtonsPanelItems}">
           </ItemsControl>
-        </Button>
-      </StackPanel>-->
 
-
-      <local:SwipeableFrame Grid.Row="1"
-                            x:Name="MainFrame">
-        <local:Page1 Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                     Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" />
-        <local:Page2 Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                     Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" />
-      </local:SwipeableFrame>
-
-      <controls:BlurryUserControl Name="blurry"
-                                  Grid.Row="3"
-                                  BlurContainer="{Binding ElementName=BlurContainer}"
-                                  Background="{StaticResource BlurryBackground}" />
-      <ItemsControl Name="MainButtonsPanel"
-                    Style="{StaticResource MainButtonPanel}"
-                    Grid.Row="3"
-                    Panel.ZIndex="1"
-                    ItemsSource="{Binding MainButtonsPanelItems}">
-      </ItemsControl>
-
+        </Grid>
+      </Grid>
     </Grid>
-  </Grid>
+
+  </Viewbox>
 </Window>

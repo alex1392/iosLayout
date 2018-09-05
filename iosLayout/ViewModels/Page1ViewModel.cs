@@ -15,10 +15,6 @@ namespace iosLayout
     {
       MainButtonsPanelItems = new CompositeCollection
       {
-        new ButtonViewModel($"Assets/icon_phone.png".PackUri(),    "Phone"),
-        new ButtonViewModel($"Assets/icon_safari.png".PackUri(),   "Safari"),
-        new ButtonViewModel($"Assets/icon_mail.png".PackUri(),     "Mail"),
-        new ButtonViewModel($"Assets/icon_music.png".PackUri(),    "Music"),
         new ButtonViewModel($"Assets/icon_message.png".PackUri(),  "Messages"),
         new ButtonViewModel($"Assets/icon_calendar.png".PackUri(), "Calendar"),
         new ButtonViewModel($"Assets/icon_photo.png".PackUri(),    "Photos"),
