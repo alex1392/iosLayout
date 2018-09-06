@@ -15,11 +15,12 @@
         mc:Ignorable="d"
         Title="MainWindow"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="SingleBorderWindow"
-        AllowsTransparency="False"
-        Height="587"
-        Width="300"
-        MouseDoubleClick="Window_MouseDoubleClick">
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="{x:Null}"
+        Loaded="Window_Loaded"
+        Height="500"
+        Width="300">
 
   <Window.DataContext>
     <local:MainWindowViewModel />
@@ -28,10 +29,12 @@
   <Viewbox Stretch="Uniform">
     <Grid Width="293"
           Height="557">
-      <Grid.Background>
-        <ImageBrush ImageSource="Assets/iPhone.png"
-                    Stretch="Uniform" />
-      </Grid.Background>
+      <Image Name="backgroundImage"
+             Source="Assets/iPhone.png"
+             Stretch="Uniform"
+             MouseDown="backgroundImage_MouseDown"
+             MouseMove="backgroundImage_MouseMove"
+             MouseUp="backgroundImage_MouseUp"/>
       <Grid Margin="36,81,33.333,81.333">
 
         <Grid x:Name="BlurContainer">
@@ -41,19 +44,19 @@
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="360" />
+            <RowDefinition Height="4.8*" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
           </Grid.RowDefinitions>
 
           <local:SwipeableFrame Grid.Row="1"
-                                x:Name="MainFrame">
+                                x:Name="MainFrame"
+                                ClipToBounds="True">
             <local:Page1 Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                          Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" />
             <local:Page2 Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                          Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" />
           </local:SwipeableFrame>
-
           <controls:BlurryUserControl Name="blurry"
                                       Grid.Row="3"
                                       BlurContainer="{Binding ElementName=BlurContainer}"

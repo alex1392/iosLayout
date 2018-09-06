@@ -115,7 +115,8 @@ namespace iosLayout
     protected override void OnMouseMove(MouseEventArgs e)
     {
       base.OnMouseMove(e);
-      if (e.LeftButton != MouseButtonState.Pressed)
+      if (e.LeftButton != MouseButtonState.Pressed ||
+        ChildrenAnchor.Count == 0)
       {
         return;
       }

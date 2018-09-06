@@ -86,11 +86,11 @@
         <Setter Property="Foreground"
                 Value="White" />
         <Setter Property="FontSize"
-                Value="12" />
+                Value="8" />
         <Setter Property="Margin"
                 Value="{StaticResource ButtonLabelMargin}" />
         <Setter Property="MaxWidth"
-                Value="60" />
+                Value="{x:Static local:Constants.ButtonWidth}" />
       </Style>
       <Style x:Key="ApplicationBase"
              TargetType="Button">

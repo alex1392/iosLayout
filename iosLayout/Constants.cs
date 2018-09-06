@@ -9,7 +9,7 @@ namespace iosLayout
 {
   public static class Constants
   {
-    public static double ButtonWidth = 60;
+    public static double ButtonWidth = 44;
     
 
     public static double ButtonLeftMargin = ButtonWidth / 5;
