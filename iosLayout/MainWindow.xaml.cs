@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using CycWpfLibrary.NativeMethods;
 
 namespace iosLayout
 {
@@ -9,34 +10,22 @@ namespace iosLayout
   /// </summary>
   public partial class MainWindow : Window
   {
-    double dpiXRatio = 1;
-    double dpiYRatio = 1;
     public MainWindow()
     {
       InitializeComponent();
 
     }
 
+    Point DpiRatio;
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
       //Get DPI
-      PresentationSource source = PresentationSource.FromVisual(this);
-      double dpiX, dpiY;
-      if (source != null)
-      {
-        dpiX = 96.0 * source.CompositionTarget.TransformToDevice.M11;
-        dpiY = 96.0 * source.CompositionTarget.TransformToDevice.M22;
-        dpiXRatio = dpiX / 96;
-        dpiYRatio = dpiY / 96;
-      }
+      DpiRatio = this.GetDpiRatio();
 
     }
 
-    Point dragAnchor;
-    Point MousePosToScreen()
-    {
-      return PointToScreen(Mouse.GetPosition(this));
-    }
+    private Point dragAnchor;
+    private Point MousePosOnScreen() => PointToScreen(Mouse.GetPosition(this));
     private void backgroundImage_MouseDown(object sender, MouseButtonEventArgs e)
     {
       //check double
@@ -46,21 +35,19 @@ namespace iosLayout
         return;
       }
 
-      dragAnchor = MousePosToScreen();
+      dragAnchor = MousePosOnScreen();
       Mouse.Capture(backgroundImage);
     }
-
     private void backgroundImage_MouseMove(object sender, MouseEventArgs e)
     {
       if (Mouse.LeftButton == MouseButtonState.Pressed)
       {
-        var mousePos = MousePosToScreen();
-        Left += (mousePos.X - dragAnchor.X) / dpiXRatio;
-        Top += (mousePos.Y - dragAnchor.Y) / dpiYRatio;
+        var mousePos = MousePosOnScreen();
+        Left += (mousePos.X - dragAnchor.X) / DpiRatio.X;
+        Top += (mousePos.Y - dragAnchor.Y) / DpiRatio.Y;
         dragAnchor = mousePos;
       }
     }
-
     private void backgroundImage_MouseUp(object sender, MouseButtonEventArgs e)
     {
       Mouse.Capture(null);
