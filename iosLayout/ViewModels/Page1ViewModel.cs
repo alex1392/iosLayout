@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,19 @@ namespace iosLayout
         new ButtonViewModel($"Assets/icon_health.png".PackUri(),   "Health"),
         new ButtonViewModel($"Assets/icon_settings.png".PackUri(), "Settings"),
         new ButtonViewModel($"Assets/icon_clock.png".PackUri(),    "Clock"),
+        
+        new FolderViewModel("Folder", new ObservableCollection<ButtonViewModel>
+        {
+          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+        })
       };
     }
   }
