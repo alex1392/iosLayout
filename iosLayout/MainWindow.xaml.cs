@@ -25,7 +25,6 @@ namespace iosLayout
     }
 
     private Point dragAnchor;
-    private Point MousePosOnScreen() => PointToScreen(Mouse.GetPosition(this));
     private void backgroundImage_MouseDown(object sender, MouseButtonEventArgs e)
     {
       //check double
@@ -35,14 +34,14 @@ namespace iosLayout
         return;
       }
 
-      dragAnchor = MousePosOnScreen();
+      dragAnchor = this.GetMousePosOnScreen();
       Mouse.Capture(backgroundImage);
     }
     private void backgroundImage_MouseMove(object sender, MouseEventArgs e)
     {
       if (Mouse.LeftButton == MouseButtonState.Pressed)
       {
-        var mousePos = MousePosOnScreen();
+        var mousePos = this.GetMousePosOnScreen();
         Left += (mousePos.X - dragAnchor.X) / DpiRatio.X;
         Top += (mousePos.Y - dragAnchor.Y) / DpiRatio.Y;
         dragAnchor = mousePos;
