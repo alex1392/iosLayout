@@ -12,7 +12,8 @@
   <UserControl.DataContext>
     <local:Page1ViewModel />
   </UserControl.DataContext>
-  <ItemsControl Style="{StaticResource ButtonPanel}"
+  <ItemsControl Style="{StaticResource PageButtonPanel}"
                 ItemsSource="{Binding MainButtonsPanelItems}"
+                ItemTemplateSelector="{StaticResource PageItemTemplateSelector}"
                 />
 </UserControl>

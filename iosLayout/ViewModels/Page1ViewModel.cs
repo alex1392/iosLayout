@@ -16,29 +16,29 @@ namespace iosLayout
     {
       MainButtonsPanelItems = new CompositeCollection
       {
-        new ButtonViewModel($"Assets/icon_message.png".PackUri(),  "Messages"),
-        new ButtonViewModel($"Assets/icon_calendar.png".PackUri(), "Calendar"),
-        new ButtonViewModel($"Assets/icon_photo.png".PackUri(),    "Photos"),
-        new ButtonViewModel($"Assets/icon_camera.png".PackUri(),   "Camera"),
-        new ButtonViewModel($"Assets/icon_weather.png".PackUri(),  "Weather"),
-        new ButtonViewModel($"Assets/icon_map.png".PackUri(),      "Maps"),
-        new ButtonViewModel($"Assets/icon_note.png".PackUri(),     "Notes"),
-        new ButtonViewModel($"Assets/icon_appstore.png".PackUri(), "App Store"),
-        new ButtonViewModel($"Assets/icon_health.png".PackUri(),   "Health"),
-        new ButtonViewModel($"Assets/icon_settings.png".PackUri(), "Settings"),
-        new ButtonViewModel($"Assets/icon_clock.png".PackUri(),    "Clock"),
+        new AppViewModel($"Assets/icon_message.png".PackUri(),  "Messages"),
+        new AppViewModel($"Assets/icon_calendar.png".PackUri(), "Calendar"),
+        new AppViewModel($"Assets/icon_photo.png".PackUri(),    "Photos"),
+        new AppViewModel($"Assets/icon_camera.png".PackUri(),   "Camera"),
+        new AppViewModel($"Assets/icon_weather.png".PackUri(),  "Weather"),
+        new AppViewModel($"Assets/icon_map.png".PackUri(),      "Maps"),
+        new AppViewModel($"Assets/icon_note.png".PackUri(),     "Notes"),
+        new AppViewModel($"Assets/icon_appstore.png".PackUri(), "App Store"),
+        new AppViewModel($"Assets/icon_health.png".PackUri(),   "Health"),
+        new AppViewModel($"Assets/icon_settings.png".PackUri(), "Settings"),
+        new AppViewModel($"Assets/icon_clock.png".PackUri(),    "Clock"),
         
-        new FolderViewModel("Folder", new ObservableCollection<ButtonViewModel>
+        new FolderViewModel("Folder", new ObservableCollection<AppViewModel>
         {
-          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
-          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
-          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
-          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
-          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
-          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
-          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
-          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
-          new ButtonViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new AppViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new AppViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new AppViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new AppViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new AppViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new AppViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new AppViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new AppViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
+          new AppViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
         })
       };
     }

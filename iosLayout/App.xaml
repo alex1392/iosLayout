@@ -14,7 +14,7 @@
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
       </ResourceDictionary.MergedDictionaries>
-      
+
       <CornerRadius x:Key="ButtonCornerRadius"
                     BottomLeft="{x:Static local:Constants.ButtonCornerRadius}"
                     BottomRight="{x:Static local:Constants.ButtonCornerRadius}"
@@ -34,7 +34,7 @@
                  Bottom="{x:Static local:Constants.ButtonLabelMargin}" />
       <Thickness x:Key="FolderButtonMargin"
                  Top="{x:Static local:Constants.FolderButtonMargin}"
-                 Left="{x:Static local:Constants.FolderButtonMargin}"/>
+                 Left="{x:Static local:Constants.FolderButtonMargin}" />
 
 
       <SolidColorBrush x:Key="Shader"
@@ -44,7 +44,7 @@
       <SolidColorBrush x:Key="FolderBackground"
                        Color="#7FFFFFFF" />
 
-      <Style x:Key="ButtonPanel"
+      <Style x:Key="PageButtonPanel"
              TargetType="ItemsControl">
         <Setter Property="Margin">
           <Setter.Value>
@@ -77,7 +77,7 @@
         <Setter Property="TextAlignment"
                 Value="Center" />
         <Setter Property="FontFamily"
-                        Value="Roboto" />
+                Value="Roboto" />
         <Setter Property="Foreground"
                 Value="White" />
         <Setter Property="FontSize"
@@ -132,7 +132,7 @@
           </Setter.Value>
         </Setter>
       </Style>
-      <Style x:Key="Folder"
+      <Style x:Key="PageFolder"
              TargetType="{x:Type Button}"
              BasedOn="{StaticResource ApplicationBase}">
         <Setter Property="Template">
@@ -265,8 +265,11 @@
           </Setter.Value>
         </Setter>
       </Style>
-      
-      <DataTemplate DataType="{x:Type local:ButtonViewModel}">
+
+      <local:MainItemTemplateSelector x:Key="MainItemTemplateSelector" />
+      <local:PageItemTemplateSelector x:Key="PageItemTemplateSelector" />
+      <DataTemplate x:Key="PageAppTemplate"
+                    DataType="{x:Type local:AppViewModel}">
         <StackPanel Orientation="Vertical"
                     Margin="{StaticResource ButtonMargin}">
           <Button Style="{StaticResource Application}">
@@ -276,17 +279,11 @@
                      Style="{StaticResource ButtonLabel}" />
         </StackPanel>
       </DataTemplate>
-      <DataTemplate DataType="{x:Type local:MainButtonViewModel}">
-        <Button Style="{StaticResource Application}"
-                Margin="{StaticResource MainButtonMargin}"
-                VerticalAlignment="Center">
-          <Image Source="{Binding Image}" />
-        </Button>
-      </DataTemplate>
-      <DataTemplate DataType="{x:Type local:FolderViewModel}">
+      <DataTemplate x:Key="PageFolderTemplate"
+                    DataType="{x:Type local:FolderViewModel}">
         <StackPanel Orientation="Vertical"
                     Margin="{StaticResource ButtonMargin}">
-          <Button Style="{StaticResource Folder}">
+          <Button Style="{StaticResource PageFolder}">
             <ItemsControl Style="{StaticResource FolderPanel}"
                           ItemsSource="{Binding Children}">
             </ItemsControl>
@@ -295,7 +292,16 @@
                      Style="{StaticResource ButtonLabel}" />
         </StackPanel>
       </DataTemplate>
-      <DataTemplate DataType="{x:Type local:MainFolderViewModel}">
+      <DataTemplate x:Key="MainAppTemplate"
+                    DataType="{x:Type local:AppViewModel}">
+        <Button Style="{StaticResource Application}"
+                Margin="{StaticResource MainButtonMargin}"
+                VerticalAlignment="Center">
+          <Image Source="{Binding Image}" />
+        </Button>
+      </DataTemplate>
+      <DataTemplate x:Key="MainFolderTemplate"
+                    DataType="{x:Type local:MainFolderViewModel}">
         <Button Style="{StaticResource MainFolder}"
                 Margin="{StaticResource MainButtonMargin}"
                 VerticalAlignment="Center">

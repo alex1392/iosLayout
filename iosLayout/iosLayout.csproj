@@ -70,14 +70,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Constants.cs" />
+    <Compile Include="Models\Constants.cs" />
     <Compile Include="MainFolderViewModel.cs" />
+    <Compile Include="Models\MainItemTemplateSelector.cs" />
     <Compile Include="Models\ButtonType.cs" />
-    <Compile Include="ViewModels\ButtonViewModel.cs" />
-    <Compile Include="Models\FolderModel.cs" />
+    <Compile Include="Models\PageItemTemplateSelector.cs" />
+    <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="Controls\SwipeableFrame.cs" />
+    <Compile Include="ViewModels\ButtonViewModel.cs" />
     <Compile Include="ViewModels\FolderViewModel.cs" />
-    <Compile Include="ViewModels\MainButtonViewModel.cs" />
     <Compile Include="ViewModels\Page2ViewModel.cs" />
     <Compile Include="ViewModels\Page1ViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

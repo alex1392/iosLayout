@@ -11,6 +11,6 @@ namespace iosLayout
   {
     public MainFolderViewModel() : base() { }
     public MainFolderViewModel(string label) : base(label) { }
-    public MainFolderViewModel(string label, ObservableCollection<ButtonViewModel> children) : base(label, children) { }
+    public MainFolderViewModel(string label, ObservableCollection<AppViewModel> children) : base(label, children) { }
   }
 }

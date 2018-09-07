@@ -49,6 +49,12 @@
             <RowDefinition Height="*" />
           </Grid.RowDefinitions>
 
+          <Button Style="{StaticResource PageFolder}">
+            <ItemsControl Style="{StaticResource FolderPanel}"
+                          ItemsSource="{Binding Folder1Items}" />
+            
+          </Button>
+          
           <local:SwipeableFrame Grid.Row="1"
                                 x:Name="MainFrame"
                                 ClipToBounds="True">
@@ -65,8 +71,8 @@
                         Style="{StaticResource MainButtonPanel}"
                         Grid.Row="3"
                         Panel.ZIndex="1"
-                        ItemsSource="{Binding MainButtonsPanelItems}">
-          </ItemsControl>
+                        ItemsSource="{Binding MainButtonsPanelItems}"
+                        ItemTemplateSelector="{StaticResource MainItemTemplateSelector}"/>
 
         </Grid>
       </Grid>

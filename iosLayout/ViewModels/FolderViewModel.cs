@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace iosLayout
 {
-  public class FolderViewModel : ViewModelBase
+  public class FolderViewModel : ButtonViewModel
   {
     public FolderViewModel()
     {
-
+      Type = ButtonType.Folder;
     }
     public FolderViewModel(string label) : this()
     {
       Label = label;
     }
-    public FolderViewModel(string label, ObservableCollection<ButtonViewModel> children) : this(label)
+    public FolderViewModel(string label, ObservableCollection<AppViewModel> children) : this(label)
     {
       Children = children;
     }
@@ -30,6 +30,6 @@ namespace iosLayout
     /// <summary>
     /// 資料夾內之子項目。
     /// </summary>
-    public ObservableCollection<ButtonViewModel> Children { get; set; }
+    public ObservableCollection<AppViewModel> Children { get; set; }
   }
 }

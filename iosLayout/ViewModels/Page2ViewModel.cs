@@ -43,10 +43,10 @@ namespace iosLayout
 
       for (int i = 0; i < imageList.Count; i++)
       {
-        MainButtonsPanelItems.Add(new ButtonViewModel(imageList[i], labelList[i]));
+        MainButtonsPanelItems.Add(new AppViewModel(imageList[i], labelList[i]));
       }
     }
 
-    public List<ButtonViewModel> MainButtonsPanelItems { get; set; } = new List<ButtonViewModel>();
+    public List<AppViewModel> MainButtonsPanelItems { get; set; } = new List<AppViewModel>();
   }
 }
