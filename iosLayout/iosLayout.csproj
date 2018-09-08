@@ -70,12 +70,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\ButtonPanel.xaml.cs">
-      <DependentUpon>ButtonPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\PopupFolder.xaml.cs">
-      <DependentUpon>PopupFolder.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Models\Constants.cs" />
     <Compile Include="MainFolderViewModel.cs" />
     <Compile Include="Models\MainItemTemplateSelector.cs" />
@@ -88,14 +82,6 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Converters\MarginConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
-    <Page Include="Controls\ButtonPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PopupFolder.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

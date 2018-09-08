@@ -16,7 +16,7 @@ namespace iosLayout
     public MainWindow()
     {
       InitializeComponent();
-      DataContext = new MainWindowViewModel();
+      DataContext = new MainWindowViewModel() { BlurContainer = BlurContainer };
     }
 
     private Point DpiRatio;
@@ -24,6 +24,11 @@ namespace iosLayout
     {
       //Get DPI
       DpiRatio = this.GetDpiRatio();
+
+    }
+
+    private void BlurContainer_Loaded(object sender, RoutedEventArgs e)
+    {
 
     }
 
@@ -87,5 +92,7 @@ namespace iosLayout
       storyboard.Begin();
       
     }
+
+    
   }
 }

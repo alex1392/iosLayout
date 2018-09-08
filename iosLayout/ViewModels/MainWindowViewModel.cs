@@ -14,11 +14,26 @@ namespace iosLayout
   {
     public MainWindowViewModel()
     {
+      Initialize();
+    }
+
+    public void Initialize()
+    {
       InitializeMainButtonsPanel();
       InitializePage1Items();
       InitializePage2Items();
       InitializeFolder1Items();
-      
+    }
+
+    UIElement _BlurContainer;
+    public UIElement BlurContainer
+    {
+      get => _BlurContainer;
+      set
+      {
+        _BlurContainer = value;
+        Initialize(); //更新Folder需要引用的BlurContainer
+      }
     }
     
     public CompositeCollection MainPanelItems { get; set; }
@@ -61,7 +76,10 @@ namespace iosLayout
           new AppViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
           new AppViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
           new AppViewModel($"Assets/icon_phone.png".PackUri(), "Phone"),
-        }),
+        })
+        {
+          BlurContainer = BlurContainer
+        }
 
       };
     }

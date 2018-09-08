@@ -33,7 +33,8 @@
              MouseUp="backgroundImage_MouseUp" />
       <Grid Margin="36,81,33.333,81.333">
 
-        <Grid x:Name="BlurContainer">
+        <Grid x:Name="BlurContainer"
+              Loaded="BlurContainer_Loaded">
           <Image Stretch="Fill"
                  Source="Assets/wallpaper.png" />
         </Grid>
@@ -65,10 +66,13 @@
                                 x:Name="MainFrame"
                                 ClipToBounds="True">
 
-            <local:ButtonPanel DataContext="{Binding Page1Items}" />
+            <ItemsControl ItemsSource="{Binding Page1Items}"
+                          Style="{StaticResource PageButtonPanel}"
+                          ItemTemplateSelector="{StaticResource PageItemTemplateSelector}" />
 
-            <local:ButtonPanel DataContext="{Binding Page2Items}" />
-
+         <ItemsControl ItemsSource="{Binding Page2Items}"
+                          Style="{StaticResource PageButtonPanel}"
+                          ItemTemplateSelector="{StaticResource PageItemTemplateSelector}" />
           </local:SwipeableFrame>
           <controls:BlurryUserControl Name="blurry"
                                       Grid.Row="3"

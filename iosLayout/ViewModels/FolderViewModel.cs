@@ -33,5 +33,6 @@ namespace iosLayout
     /// </summary>
     public ObservableCollection<AppViewModel> Children { get; set; }
 
+    public UIElement BlurContainer { get; set; }
   }
 }
