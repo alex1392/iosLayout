@@ -70,6 +70,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ButtonPanel.xaml.cs">
+      <DependentUpon>ButtonPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PopupFolder.xaml.cs">
+      <DependentUpon>PopupFolder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Constants.cs" />
     <Compile Include="MainFolderViewModel.cs" />
     <Compile Include="Models\MainItemTemplateSelector.cs" />
@@ -79,17 +85,17 @@
     <Compile Include="Controls\SwipeableFrame.cs" />
     <Compile Include="ViewModels\ButtonViewModel.cs" />
     <Compile Include="ViewModels\FolderViewModel.cs" />
-    <Compile Include="ViewModels\Page2ViewModel.cs" />
-    <Compile Include="ViewModels\Page1ViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Converters\MarginConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
-    <Compile Include="Pages\Page1.xaml.cs">
-      <DependentUpon>Page1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Page2.xaml.cs">
-      <DependentUpon>Page2.xaml</DependentUpon>
-    </Compile>
+    <Page Include="Controls\ButtonPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PopupFolder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -102,14 +108,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\Page1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Page2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

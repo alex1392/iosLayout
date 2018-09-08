@@ -21,11 +21,7 @@
         Loaded="Window_Loaded"
         Height="600"
         Width="400">
-
-  <Window.DataContext>
-    <local:MainWindowViewModel />
-  </Window.DataContext>
-
+  
   <Viewbox Stretch="Uniform">
     <Grid Width="293"
           Height="557">
@@ -34,7 +30,7 @@
              Stretch="Uniform"
              MouseDown="backgroundImage_MouseDown"
              MouseMove="backgroundImage_MouseMove"
-             MouseUp="backgroundImage_MouseUp"/>
+             MouseUp="backgroundImage_MouseUp" />
       <Grid Margin="36,81,33.333,81.333">
 
         <Grid x:Name="BlurContainer">
@@ -49,19 +45,30 @@
             <RowDefinition Height="*" />
           </Grid.RowDefinitions>
 
-          <Button Style="{StaticResource PageFolder}">
-            <ItemsControl Style="{StaticResource FolderPanel}"
-                          ItemsSource="{Binding Folder1Items}" />
-            
-          </Button>
-          
+          <StackPanel Orientation="Horizontal"
+                      Grid.Row="0"
+                      Panel.ZIndex="10">
+            <Viewbox Name="viewBox"
+                     Stretch="Uniform"
+                     RenderTransformOrigin="0.5,0.5">
+              <Viewbox.RenderTransform>
+                <TranslateTransform />
+              </Viewbox.RenderTransform>
+              <Button Name="button"
+                      Click="Button_Click">
+                aaa
+              </Button>
+            </Viewbox>
+          </StackPanel>
+
           <local:SwipeableFrame Grid.Row="1"
                                 x:Name="MainFrame"
                                 ClipToBounds="True">
-            <local:Page1 Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                         Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" />
-            <local:Page2 Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                         Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" />
+
+            <local:ButtonPanel DataContext="{Binding Page1Items}" />
+
+            <local:ButtonPanel DataContext="{Binding Page2Items}" />
+
           </local:SwipeableFrame>
           <controls:BlurryUserControl Name="blurry"
                                       Grid.Row="3"
@@ -71,8 +78,8 @@
                         Style="{StaticResource MainButtonPanel}"
                         Grid.Row="3"
                         Panel.ZIndex="1"
-                        ItemsSource="{Binding MainButtonsPanelItems}"
-                        ItemTemplateSelector="{StaticResource MainItemTemplateSelector}"/>
+                        ItemsSource="{Binding MainPanelItems}"
+                        ItemTemplateSelector="{StaticResource MainItemTemplateSelector}" />
 
         </Grid>
       </Grid>

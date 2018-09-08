@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 
 namespace iosLayout
 {
-  /// <summary>
-  /// UserControl1.xaml 的互動邏輯
-  /// </summary>
-  public partial class Page1 : UserControl
-  {
-    public Page1()
+    /// <summary>
+    /// ButtonPanel.xaml 的互動邏輯
+    /// </summary>
+    public partial class ButtonPanel : UserControl
     {
-      InitializeComponent();
+        public ButtonPanel()
+        {
+            InitializeComponent();
+        }
     }
-  }
 }

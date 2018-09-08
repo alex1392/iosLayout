@@ -35,6 +35,8 @@
       <Thickness x:Key="FolderButtonMargin"
                  Top="{x:Static local:Constants.FolderButtonMargin}"
                  Left="{x:Static local:Constants.FolderButtonMargin}" />
+      <Thickness x:Key="FolderButtonPopupMargin"
+                 Left="{x:Static local:Constants.FolderButtonMargin}" />
 
 
       <SolidColorBrush x:Key="Shader"
@@ -43,6 +45,20 @@
                        Color="#4CFFFFFF" />
       <SolidColorBrush x:Key="FolderBackground"
                        Color="#7FFFFFFF" />
+
+      <ControlTemplate x:Key="BlurryFolderTemplate">
+        <Grid>
+          <Rectangle Name="Blur" />
+          <!--BlurryUserControl.Template中一定要有一個名為Blur的元件來搭載模糊背景-->
+          <Rectangle RadiusX="{x:Static local:Constants.ButtonCornerRadius}"
+                     RadiusY="{x:Static local:Constants.ButtonCornerRadius}" />
+        </Grid>
+      </ControlTemplate>
+      <Style x:Key="BlurryFolder"
+             TargetType="blur:BlurryUserControl">
+        <Setter Property="Template"
+                Value="{StaticResource BlurryFolderTemplate}" />
+      </Style>
 
       <Style x:Key="PageButtonPanel"
              TargetType="ItemsControl">
@@ -87,6 +103,24 @@
         <Setter Property="MaxWidth"
                 Value="{x:Static local:Constants.ButtonWidth}" />
       </Style>
+      <Style x:Key="FolderButtonLabel"
+             TargetType="TextBlock">
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="TextAlignment"
+                Value="Center" />
+        <Setter Property="FontFamily"
+                Value="Roboto" />
+        <Setter Property="Foreground"
+                Value="White" />
+        <Setter Property="FontSize"
+                Value="2" />
+        <Setter Property="Margin"
+                Value="0.75,0" />
+        <Setter Property="MaxWidth"
+                Value="{x:Static local:Constants.FolderButtonWidth}" />
+      </Style>
+
       <Style x:Key="ApplicationBase"
              TargetType="Button">
         <Setter Property="Width"
@@ -140,23 +174,12 @@
             <ControlTemplate TargetType="{x:Type Button}">
               <Grid>
                 <blur:BlurryUserControl Name="blurryBackground"
-                                        BlurContainer="{Binding ElementName=BlurContainer}">
-                  <blur:BlurryUserControl.Template>
-                    <ControlTemplate>
-                      <Grid>
-                        <Rectangle Name="Blur" />
-                        <!--BlurryUserControl.Template中一定要有一個名為Blur的元件來搭載模糊背景-->
-                        <Rectangle RadiusX="{x:Static local:Constants.ButtonCornerRadius}"
-                                   RadiusY="{x:Static local:Constants.ButtonCornerRadius}"
-                                   Fill="{StaticResource FolderBackground}" />
-                      </Grid>
-                    </ControlTemplate>
-                  </blur:BlurryUserControl.Template>
-                </blur:BlurryUserControl>
-                <ContentPresenter Width="{x:Static local:Constants.FolderContentWidth}"
+                                        BlurContainer="{Binding ElementName=BlurContainer}"
+                                        Style="{StaticResource BlurryFolder}" />
+                <!--<ContentPresenter Width="{x:Static local:Constants.FolderContentWidth}"
                                   Height="{x:Static local:Constants.FolderContentWidth}"
                                   VerticalAlignment="Center"
-                                  HorizontalAlignment="Center" />
+                                  HorizontalAlignment="Center" />-->
                 <Border Name="AppFolderShader"
                         CornerRadius="{StaticResource ButtonCornerRadius}"
                         Visibility="Hidden"
@@ -254,12 +277,34 @@
         <Setter Property="ItemTemplate">
           <Setter.Value>
             <DataTemplate>
+              <Button Style="{StaticResource FolderButton}"
+                      Margin="{StaticResource FolderButtonMargin}"
+                      IsHitTestVisible="False">
+                <Image Source="{Binding Image}" />
+              </Button>
+            </DataTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style x:Key="FolderPanelPopup"
+             TargetType="ItemsControl">
+        <Setter Property="ItemsPanel">
+          <Setter.Value>
+            <ItemsPanelTemplate>
+              <WrapPanel />
+            </ItemsPanelTemplate>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+          <Setter.Value>
+            <DataTemplate>
               <StackPanel Orientation="Vertical"
-                          Margin="{StaticResource FolderButtonMargin}">
-                <Button Style="{StaticResource FolderButton}"
-                        IsHitTestVisible="False">
+                          Margin="{StaticResource FolderButtonPopupMargin}">
+                <Button Style="{StaticResource FolderButton}">
                   <Image Source="{Binding Image}" />
                 </Button>
+                <TextBlock Text="{Binding Label}"
+                           Style="{StaticResource FolderButtonLabel}" />
               </StackPanel>
             </DataTemplate>
           </Setter.Value>
@@ -281,16 +326,21 @@
       </DataTemplate>
       <DataTemplate x:Key="PageFolderTemplate"
                     DataType="{x:Type local:FolderViewModel}">
-        <StackPanel Orientation="Vertical"
-                    Margin="{StaticResource ButtonMargin}">
-          <Button Style="{StaticResource PageFolder}">
-            <ItemsControl Style="{StaticResource FolderPanel}"
-                          ItemsSource="{Binding Children}">
-            </ItemsControl>
-          </Button>
-          <TextBlock Text="{Binding Label}"
-                     Style="{StaticResource ButtonLabel}" />
-        </StackPanel>
+        <Grid>
+          <blur:BlurryUserControl Name="blurryBackground"
+                                  BlurContainer="{Binding BlurContainer}"
+                                  Style="{StaticResource BlurryFolder}" />
+          <StackPanel Orientation="Vertical"
+                      Margin="{StaticResource ButtonMargin}">
+            <Button Style="{StaticResource PageFolder}">
+              <ItemsControl Style="{StaticResource FolderPanel}"
+                            ItemsSource="{Binding Children}">
+              </ItemsControl>
+            </Button>
+            <TextBlock Text="{Binding Label}"
+                       Style="{StaticResource ButtonLabel}" />
+          </StackPanel>
+        </Grid>
       </DataTemplate>
       <DataTemplate x:Key="MainAppTemplate"
                     DataType="{x:Type local:AppViewModel}">
@@ -311,6 +361,13 @@
         </Button>
       </DataTemplate>
 
+
+      <Style TargetType="local:ButtonPanel">
+        <Setter Property="Width"
+                Value="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" />
+        <Setter Property="Height"
+                Value="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" />
+      </Style>
     </ResourceDictionary>
   </Application.Resources>
 </Application>

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace iosLayout
+namespace iosLayout.Controls
 {
     /// <summary>
-    /// Page2.xaml 的互動邏輯
+    /// PopupFolder.xaml 的互動邏輯
     /// </summary>
-    public partial class Page2 : UserControl
+    public partial class PopupFolder : UserControl
     {
-        public Page2()
+        public PopupFolder()
         {
             InitializeComponent();
         }

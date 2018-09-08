@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace iosLayout
 {
@@ -31,5 +32,6 @@ namespace iosLayout
     /// 資料夾內之子項目。
     /// </summary>
     public ObservableCollection<AppViewModel> Children { get; set; }
+
   }
 }
